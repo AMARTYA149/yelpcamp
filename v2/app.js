@@ -19,30 +19,16 @@ var Campground = mongoose.model("Campground", campgroundSchema);
 // Campground.create(
 //     {
 //         name: "Granite Hill",
-//         image: "https://pixabay.com/get/ef3cb00b2af01c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg",
-//         description: "Granite Hill, beautiful place Great"
+//         image: "https://farm1.staticflickr.com/60/215827008_6489cd30c3.jpg",
+//         description: "This is a huge granite hill, no bathrooms.  No water. Beautiful granite!"
 //     }, function(err, campground){
 //         if(err){
 //             console.log(err);
 //         } else{
-//             console.log("New Data Inserted Campground:");
+//             console.log("Newly Created Campground");
 //             console.log(campground);
 //         }
 //     });
-
-// var campgrounds = [
-//     {name: "Salmon Greek", image: "https://pixabay.com/get/e03db50f2af41c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Granite Hill", image: "https://pixabay.com/get/ef3cb00b2af01c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Mountain Rest", image: "https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
-//     {name: "Salmon Greek", image: "https://pixabay.com/get/e03db50f2af41c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Granite Hill", image: "https://pixabay.com/get/ef3cb00b2af01c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Mountain Rest", image: "https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"},
-//     {name: "Salmon Greek", image: "https://pixabay.com/get/e03db50f2af41c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Granite Hill", image: "https://pixabay.com/get/ef3cb00b2af01c22d2524518b7444795ea76e5d004b0144590f2c57fa7eeb2_340.jpg"},
-//     {name: "Mountain Rest", image: "https://farm1.staticflickr.com/130/321487195_ff34bde2f5.jpg"}
-    
-// ];
-
 
 app.get("/", function(req,res){
    res.render("landing");
@@ -82,9 +68,17 @@ app.get("/campgrounds/new", function(req,res){
 });
 
 app.get("/campgrounds/:id", function(req, res){
-   // res.send("show page!");
-   res.render("show");
-});
+    // res.send("show page!");
+    Campground.findById(req.params.id, function(err, foundCampground){
+        if(err){
+            console.log(err);
+        }
+        else {
+            res.render("show", {campgrounds: foundCampground});
+        }
+    });
+  //  res.render("show");
+ })
 
 app.listen(5000, function(){
     console.log("Yelpcamp server started");
