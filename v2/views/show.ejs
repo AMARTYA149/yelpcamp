@@ -1,2 +1,5 @@
-<h4>Show Template</h4>
-<%= campgrounds.name %>
+<% include partials/header %>
+<h4><%= campgrounds.name %></h4>
+<img src="<%=campgrounds.image%>">
+<p><%= campgrounds.description %></p>
+<% include partials/footer %>
