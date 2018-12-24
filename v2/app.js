@@ -75,7 +75,7 @@ app.get("/campgrounds/:id", function(req, res){
             console.log(err);
         }
         else {
-            res.render("show", {campgrounds: foundCampground});
+            res.render("show", {campground: foundCampground});
         }
     });
   //  res.render("show");
