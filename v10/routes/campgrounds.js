@@ -58,15 +58,31 @@ router.get("/:id", function(req, res){
 
 //Edit campground route
 router.get("/:id/edit", function(req,res){
-    Campground.findById(req.params.id, function(err,foundCampground){
-        if(err){
-            res.redirect("/campgrounds")
-        }
-        else
-        {
-            res.render("campgrounds/edit", {campground: foundCampground});
-        }
-    });
+    if(res.isAuthenticated()){
+        Campground.findById(req.params.id, function(err,foundCampground){
+            if(err){
+                res.redirect("/campgrounds")
+            }
+            else
+            {
+                res.render("campgrounds/edit", {campground: foundCampground});
+            }
+        });
+    }
+    else
+    {
+        console.log("deleting");
+        res.send("delting");
+    }
+    // Campground.findById(req.params.id, function(err,foundCampground){
+    //     if(err){
+    //         res.redirect("/campgrounds")
+    //     }
+    //     else
+    //     {
+    //         res.render("campgrounds/edit", {campground: foundCampground});
+    //     }
+    // });
 });
 
 //Update route
